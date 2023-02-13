@@ -45,7 +45,7 @@ In addition to the dataaset above, our team will leverage the following pulbic d
 
 * [Liz Johnson](https://github.com/emj1020)
 
-* [Ruhnuma Tarannum](https://github.com/numa615)
+* [Rahnuma Tarannum](https://github.com/numa615)
 
 * [Rui Jiang](https://github.com/RuiJiang615)
 

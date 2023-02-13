@@ -43,12 +43,12 @@ In addition to the dataaset above, our team will leverage the following pulbic d
 
 ### Capstone Student Team
 
-Liz Johnson - emj6930
+* [Liz Johnson](https://github.com/emj1020)
 
-Ruhnuma Tarannum - numa615
+* [Ruhnuma Tarannum](https://github.com/numa615)
 
-Rui Jiang - RuiJiang615
+* [Rui Jiang](https://github.com/RuiJiang615)
 
 ### Project Sponser
 
-Andrew Foltz-Morrison 
+[Andrew Foltz-Morrison](https://github.com/afoltzm) 

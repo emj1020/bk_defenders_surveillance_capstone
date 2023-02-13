@@ -25,9 +25,10 @@ How do we quantify the intensity of surveillance that neighborhoods across Brook
 ### Surveillance Data
 
 Two public datasets speak to the locations of cameras in Brooklyn:
-*Amnesty International’s crowdsourced [dataset of surveillance camera locations](https://citizenevidence.org/2021/09/09/decode-surveillance-nyc/) and the NYPD’s own disclosures about surveillance technologies, will provide additional context for our own observations. 
 
-*The Surveillance Technology Oversight Project’s [Hikvision Camera Census](https://www.stopspying.org/2021-hikvision) provides another dataset, while only covering a very small fraction of the private cameras in use, nevertheless shows approximate locations and distribution patterns for over 16,000 cameras identified.
+* Amnesty International’s crowdsourced [dataset of surveillance camera locations](https://citizenevidence.org/2021/09/09/decode-surveillance-nyc/) and the NYPD’s own disclosures about surveillance technologies, will provide additional context for our own observations. 
+
+* The Surveillance Technology Oversight Project’s [Hikvision Camera Census](https://www.stopspying.org/2021-hikvision) provides another dataset, while only covering a very small fraction of the private cameras in use, nevertheless shows approximate locations and distribution patterns for over 16,000 cameras identified.
 
 ### Public-Sector Data
 Census data from the American Community will be used to identify key demographic information about the neighborhoods affected by video surveillance and building and land use data from the NYC Department of City Planning’s PLUTO database will provide further context to that census data.

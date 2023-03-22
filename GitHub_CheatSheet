@@ -1,0 +1,49 @@
+GIT CHEAT SHEET
+
+SCENARIO 1: You want to get the most updated work from the github repository
+
+    ** ALWAYS DO THIS TO ENSURE THE REPO ON YOUR PERSONAL DEVICE IS UP TO DATE
+    WITH THE REPO THAT LIVES ON THE GITHUB SERVER BEFORE MAKING CHANGES IN THE
+    REPO ON YOUR PERSONAL DEVICE **
+
+In terminal, navigate to your git hub repo folder on your personal device:
+
+>> cd Desktop/Person_Projects/bk_defenders_surveillance_capstone
+
+Pull the most recent version of github repository:
+
+>> git pull
+
+
+ SCENARIO 2: You have made changes to the repo on your personal device and you
+ want to push those changes to the repo in github
+
+    ** ALWAYS DO THIS WHENEVER YOU ARE DONE WITH YOUR WORK, EVEN IF IT IS NOT
+    COMPLETE SO THAT OUR BRANCHES DO NOT DIVERT TOO FAR FROM ONE ANOTHER **
+
+In terminal, make sure you are in the git hub repo folder on your personal device:
+
+>> cd Desktop/Person_Projects/bk_defenders_surveillance_capstone
+
+stage all of our changes & specify what you did via the message:
+
+>> git add . && git commit -m "add your message here"
+
+push your changes to the github repository:
+
+>> git push origin main
+
+SCENARIO 3: You are trying to open jupyter hub via terminal and you intend on
+using geo-packages like geopandas.
+
+In terminal navigate to desired folder, like our capstone repository:
+
+>>cd Desktop/Person_Projects/bk_defenders_surveillance_capstone
+
+activate your geo environment:
+
+>>conda activate geo_env
+
+open jupyter notebooks:
+
+>>jupyter notebook

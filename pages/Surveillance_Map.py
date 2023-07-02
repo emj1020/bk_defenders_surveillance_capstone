@@ -11,11 +11,10 @@ from branca.colormap import linear
 st.set_page_config(layout="wide", page_title="Brooklyn Surveillance Map")
 st.title("Brooklyn Surveillance Metric and Total Cameras in an Interactive Map")
 
-
-
 tab0,tab1,tab2 = st.tabs(["Blocks", "Tracts", "Neighborhoods"])
 
 with tab0:
+    st.subheader("")
     # Step 1: Load and preprocess the data
     @st.cache_data
     def load_data():

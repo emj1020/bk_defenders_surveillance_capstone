@@ -1,5 +1,6 @@
 import streamlit as st
 import geopandas as gpd
+import numpy as np
 import folium
 from folium.plugins import MiniMap
 from streamlit_folium import folium_static
@@ -7,9 +8,10 @@ from branca.colormap import LinearColormap
 
 
 st.set_page_config(layout="wide", page_title="Brooklyn Surveillance Metric (Racial & Ethnic Communities)")
-st.title("Brooklyn Racial and Ethnic Surveillance Metric in an Interactive Map")
+st.title("Brooklyn Racial and Ethnic Surveillance Metric in an Interactive Visuals")
 
 tab0, tab1 = st.tabs(["Tracts", "Neighborhoods"])
+
 
 with tab0:
     st.subheader("Black Vs. White Communities")
@@ -25,34 +27,36 @@ with tab0:
     # Set the CRS for the GeoDataFrame
     gdf = df.to_crs(epsg=4326)
 
-    # Define the colors and thresholds for the colormap
-    colors = ['#ffffcc', '#ffeda0', '#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c', '#bd0026', '#800026']
-    thresholds = list(range(0, 101, 10))
+    # Calculate the 10% quartiles of the "Black/Whit" column
+    quartiles = np.percentile(df["Black/Whit"].dropna(), [10, 20, 30, 40, 50, 60, 70, 80, 90])
 
-    # Create a linear colormap based on the colors and thresholds
-    colormap = LinearColormap(colors, vmin=0, vmax=100).scale(min(thresholds), max(thresholds))
+    # Define the colors for the colormap
+    colors = ['#FF0000', '#FF3333', '#FF6666', '#FF9999', '#FFCCCC', '#FFE6E6', '#FFF2F2', '#FFF9F9', '#FFFFFF']
+
+    # Create a linear colormap based on the colors and quartiles
+    colormap = LinearColormap(colors, vmin=quartiles[0], vmax=quartiles[-1]).scale(quartiles[0], quartiles[-1])
 
     # Create an interactive map centered around the data
     m = folium.Map(location=[gdf.centroid.y.mean(), gdf.centroid.x.mean()], zoom_start=12)
 
     folium.GeoJson(
-    gdf,
-    name='Surveillance Metric',
-    style_function=lambda feature: {
-        'fillColor': colormap(feature['properties']['Black/Whit']) if feature['properties']['Black/Whit'] is not None else 'gray',
-        'color': 'black',
-        'weight': 2,
-        'fillOpacity': 0.7
-    },
-    tooltip=folium.features.GeoJsonTooltip(
-        fields=['Black/Whit'],
-        aliases=['Surveillance Metric:'],
-        localize=True,
-        labels=True,
-        sticky=False,
-        style="font-weight:bold"
-    )
-).add_to(m)
+        gdf,
+        name='Surveillance Metric',
+        style_function=lambda feature: {
+            'fillColor': colormap(feature['properties']['Black/Whit']) if feature['properties']['Black/Whit'] is not None else 'gray',
+            'color': 'black',
+            'weight': 2,
+            'fillOpacity': 0.7
+        },
+        tooltip=folium.features.GeoJsonTooltip(
+            fields=['Black/Whit'],
+            aliases=['Surveillance Metric:'],
+            localize=True,
+            labels=True,
+            sticky=False,
+            style="font-weight:bold"
+        )
+    ).add_to(m)
 
     # Add the colormap to the map legend
     colormap.add_to(m)
@@ -86,34 +90,36 @@ with tab0:
     # Set the CRS for the GeoDataFrame
     gdf = df.to_crs(epsg=4326)
 
-    # Define the colors and thresholds for the colormap
-    colors = ['#0000FF', '#0055FF', '#00AAFF', '#00FFFF', '#55FFAA', '#AAFF55', '#FFFF00', '#FFAA00', '#FF5500']
-    thresholds = list(range(0, 101, 10))
+    # Calculate the 10% quartiles of the "Hispanic/W" column
+    quartiles = np.percentile(df["Hispanic/W"].dropna(), [10, 20, 30, 40, 50, 60, 70, 80, 90])
 
-    # Create a linear colormap based on the colors and thresholds
-    colormap = LinearColormap(colors, vmin=0, vmax=100).scale(min(thresholds), max(thresholds))
+    # Define the colors for the colormap
+    colors = ['#FF0000', '#FF3333', '#FF6666', '#FF9999', '#FFCCCC', '#FFE6E6', '#FFF2F2', '#FFF9F9', '#FFFFFF']
+
+    # Create a linear colormap based on the colors and quartiles
+    colormap = LinearColormap(colors, vmin=quartiles[0], vmax=quartiles[-1]).scale(quartiles[0], quartiles[-1])
 
     # Create an interactive map centered around the data
     m = folium.Map(location=[gdf.centroid.y.mean(), gdf.centroid.x.mean()], zoom_start=12)
 
     folium.GeoJson(
-    gdf,
-    name='Surveillance Metric',
-    style_function=lambda feature: {
-        'fillColor': colormap(feature['properties']['Hispanic/W']) if feature['properties']['Hispanic/W'] is not None else 'gray',
-        'color': 'black',
-        'weight': 2,
-        'fillOpacity': 0.7
-    },
-    tooltip=folium.features.GeoJsonTooltip(
-        fields=['Hispanic/W'],
-        aliases=['Surveillance Metric:'],
-        localize=True,
-        labels=True,
-        sticky=False,
-        style="font-weight:bold"
-    )
-).add_to(m)
+        gdf,
+        name='Surveillance Metric',
+        style_function=lambda feature: {
+            'fillColor': colormap(feature['properties']['Hispanic/W']) if feature['properties']['Hispanic/W'] is not None else 'gray',
+            'color': 'black',
+            'weight': 2,
+            'fillOpacity': 0.7
+        },
+        tooltip=folium.features.GeoJsonTooltip(
+            fields=['Hispanic/W'],
+            aliases=['Surveillance Metric:'],
+            localize=True,
+            labels=True,
+            sticky=False,
+            style="font-weight:bold"
+        )
+    ).add_to(m)
 
     # Add the colormap to the map legend
     colormap.add_to(m)
@@ -149,34 +155,37 @@ with tab1:
     # Set the CRS for the GeoDataFrame
     gdf = df.to_crs(epsg=4326)
 
-    # Define the colors and thresholds for the colormap
-    colors = ['#ffffcc', '#ffeda0', '#fed976', '#feb24c', '#fd8d3c', '#fc4e2a', '#e31a1c', '#bd0026', '#800026']
-    thresholds = list(range(0, 101, 10))
+    # Calculate the 10% quartiles of the "Black/Whit" column
+    quartiles = np.percentile(df["Black/Whit"].dropna(), [10, 20, 30, 40, 50, 60, 70, 80, 90])
 
-    # Create a linear colormap based on the colors and thresholds
-    colormap = LinearColormap(colors, vmin=0, vmax=100).scale(min(thresholds), max(thresholds))
+    # Define the gradient shades of red colors for the colormap
+    colors = ['#FF0000', '#FF3333', '#FF6666', '#FF9999', '#FFCCCC', '#FFE6E6', '#FFF2F2', '#FFF9F9', '#FFFFFF']
+
+
+    # Create a linear colormap based on the colors and quartiles
+    colormap = LinearColormap(colors, vmin=quartiles[0], vmax=quartiles[-1]).scale(quartiles[0], quartiles[-1])
 
     # Create an interactive map centered around the data
     m = folium.Map(location=[gdf.centroid.y.mean(), gdf.centroid.x.mean()], zoom_start=12)
 
     folium.GeoJson(
-    gdf,
-    name='Surveillance Metric',
-    style_function=lambda feature: {
-        'fillColor': colormap(feature['properties']['Black/Whit']) if feature['properties']['Black/Whit'] is not None else 'gray',
-        'color': 'black',
-        'weight': 2,
-        'fillOpacity': 0.7
-    },
-    tooltip=folium.features.GeoJsonTooltip(
-        fields=['Black/Whit'],
-        aliases=['Surveillance Metric:'],
-        localize=True,
-        labels=True,
-        sticky=False,
-        style="font-weight:bold"
-    )
-).add_to(m)
+        gdf,
+        name='Surveillance Metric',
+        style_function=lambda feature: {
+            'fillColor': colormap(feature['properties']['Black/Whit']) if feature['properties']['Black/Whit'] is not None else 'gray',
+            'color': 'black',
+            'weight': 2,
+            'fillOpacity': 0.7
+        },
+        tooltip=folium.features.GeoJsonTooltip(
+            fields=['Black/Whit'],
+            aliases=['Surveillance Metric:'],
+            localize=True,
+            labels=True,
+            sticky=False,
+            style="font-weight:bold"
+        )
+    ).add_to(m)
 
     # Add the colormap to the map legend
     colormap.add_to(m)
@@ -210,34 +219,33 @@ with tab1:
     # Set the CRS for the GeoDataFrame
     gdf = df.to_crs(epsg=4326)
 
-    # Define the colors and thresholds for the colormap
-    colors = ['#0000FF', '#0055FF', '#00AAFF', '#00FFFF', '#55FFAA', '#AAFF55', '#FFFF00', '#FFAA00', '#FF5500']
-    thresholds = list(range(0, 101, 10))
-
-    # Create a linear colormap based on the colors and thresholds
-    colormap = LinearColormap(colors, vmin=0, vmax=100).scale(min(thresholds), max(thresholds))
+    # Define the colors for the colormap
+    colors = ['#0000FF', '#0000AA', '#000055', '#005500', '#00AA00', '#55FF55', '#AAFFAA', '#FFFFAA', '#FFFFFF']
+    
+    # Create a linear colormap based on the colors and quartiles
+    colormap = LinearColormap(colors, vmin=quartiles[0], vmax=quartiles[-1]).scale(quartiles[0], quartiles[-1])
 
     # Create an interactive map centered around the data
     m = folium.Map(location=[gdf.centroid.y.mean(), gdf.centroid.x.mean()], zoom_start=12)
 
     folium.GeoJson(
-    gdf,
-    name='Surveillance Metric',
-    style_function=lambda feature: {
-        'fillColor': colormap(feature['properties']['Hispanic/W']) if feature['properties']['Hispanic/W'] is not None else 'gray',
-        'color': 'black',
-        'weight': 2,
-        'fillOpacity': 0.7
-    },
-    tooltip=folium.features.GeoJsonTooltip(
-        fields=['Hispanic/W'],
-        aliases=['Surveillance Metric:'],
-        localize=True,
-        labels=True,
-        sticky=False,
-        style="font-weight:bold"
-    )
-).add_to(m)
+        gdf,
+        name='Surveillance Metric',
+        style_function=lambda feature: {
+            'fillColor': colormap(feature['properties']['Hispanic/W']) if feature['properties']['Hispanic/W'] is not None else 'gray',
+            'color': 'black',
+            'weight': 2,
+            'fillOpacity': 0.7
+        },
+        tooltip=folium.features.GeoJsonTooltip(
+            fields=['Hispanic/W'],
+            aliases=['Surveillance Metric:'],
+            localize=True,
+            labels=True,
+            sticky=False,
+            style="font-weight:bold"
+        )
+    ).add_to(m)
 
     # Add the colormap to the map legend
     colormap.add_to(m)
@@ -257,3 +265,5 @@ with tab1:
         """,
         unsafe_allow_html=True
     )
+
+    

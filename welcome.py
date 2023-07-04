@@ -41,12 +41,12 @@ st.markdown("<h2 style='text-align: center'>Welcome!</h2>", unsafe_allow_html=Tr
 
 # Project description
 st.header("Project Description")
-st.write("Brooklyn Defender Services is a public defense office whose mission is to provide outstanding representation and advocacy free of cost to people facing loss of freedom, family separation, and other serious legal harms by the government. Our Science and Surveillance Project focuses on investigating government and private entity use of new science, surveillance, and data analysis techniques to educate our staff, communities, and representatives, as well as advocate against unjust practices. The goal of this capstone project is to develop a methodology that quantifies the intensity of surveillance neighborhoods in Brooklyn are subjected to by the presence of surveillance cameras.")
+st.write("Brooklyn Defender Services is a public defense office whose mission is to provide outstanding representation and advocacy free of cost to people facing loss of freedom, family separation, and other serious legal harms by the government. Their Science and Surveillance Project focuses on investigating government and private entity use of new science, surveillance, and data analysis techniques to educate our staff, communities, and representatives, as well as advocate against unjust practices. The goal of this capstone project is to develop a methodology that quantifies the intensity of surveillance neighborhoods in Brooklyn are subjected to by the presence of surveillance cameras.")
 st.markdown("---")
 
 # Research question
 st.header("Research Question")
-st.write("How do we quantify the intensity of surveillance that neighborhoods across Brooklyn are subjected to by the presence of surveillance cameras? Which communities are disproportionately impacted by this surveillance load?")
+st.write("How do we quantify the intensity of surveillance across Brooklyn? How do we develop a metric that can be used to reliably compare the intensity of surveillance? How can we identify which communities are disproportionately impacted by this surveillance load?")
 st.markdown("---")
 
 # Anticipated data requirements
@@ -75,7 +75,7 @@ with team_columns[1]:
 
 with team_columns[2]:
     st.subheader("Operations Manager: Rui Jiang")
-    st.image("https://beforeigosolutions.com/pascale-atkinson/attachment/dummy-profile-pic-300x300-1/", use_column_width=True)
+    st.image("https://media.licdn.com/dms/image/C5603AQFTa5Mb9_IRRA/profile-displayphoto-shrink_800_800/0/1554355541265?e=1694044800&v=beta&t=nxryIQuaQvgxpHWGVSYHD7iPRZhgCU2Nu9aWD2BjPZg", use_column_width=True)
 
 # Sponsor
 st.header("Sponsor")
@@ -90,9 +90,10 @@ st.write("Manny Patole")
 
 # Links
 st.header("Links")
-st.write("[Our GitHub Repo](https://github.com/emj1020/bk_defenders_surveillance_capstone/tree/main/Outputs)")
+st.write("[Our GitHub Repo](https://github.com/emj1020/bk_defenders_surveillance_capstone/)")
 st.write("[LinkedIn - Rahnuma Tarannum](https://www.linkedin.com/in/rahnuma-tarannum/)")
 st.write("[LinkedIn - Liz Johnson](https://www.linkedin.com/in/elizabeth-johnson-65835414a/)")
+st.write("[LinkedIn - Rui Jiang](https://www.linkedin.com/in/ruijiang-wyf/)")
 
 # Contact information
 st.header("Contact Information")

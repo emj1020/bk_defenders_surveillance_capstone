@@ -2,7 +2,8 @@ import streamlit as st
 import geopandas as gpd
 import pandas as pd
 import numpy as np
-import plotly.express as px
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 st.set_page_config(layout="wide", page_title="Brooklyn Surveillance Metric (Racial & Ethnic Communities)")
@@ -30,17 +31,23 @@ df = df.rename(columns={
 filtered_df = df[['White, not hispanic', 'Black or African American, not hispanic', 'Asian, not hispanic',
                   'Hispanic or Latino', 'Other Races, not hispanic']].dropna()
 
-# Display the histograms
-selected_races = st.multiselect('Select Races for Histogram Comparison', filtered_df.columns,
+# Display the density plots
+selected_races = st.multiselect('Select Races for Density Plot', filtered_df.columns,
                                 default=["White, not hispanic", "Black or African American, not hispanic"])
 
-colors = px.colors.qualitative.Set1[:len(selected_races)]  # Assign colors to each selected race
+colors = sns.color_palette("Set1", len(selected_races))
+
+fig, ax = plt.subplots()
 
 for race, color in zip(selected_races, colors):
-    st.subheader(f'Histogram of {race}')
     values = filtered_df[race]
     avg_value = values.mean()
-    st.write(f"Average value: {avg_value:.2f}")
-    fig = px.histogram(values, nbins=10, title=f"{race} - Surveillance Metric", color_discrete_sequence=[color])
-    fig.update_layout(xaxis_title="Surveillance Metric", yaxis_title="Frequency")
-    st.plotly_chart(fig)
+    st.write(f"Average value for {race}: {avg_value:.2f}")
+    sns.kdeplot(values, color=color, label=race, ax=ax)
+
+ax.set_title("Surveillance Metric by Race/Ethnicity")
+ax.set_xlabel("Surveillance Metric")
+ax.set_ylabel("Density")
+ax.legend()
+
+st.pyplot(fig)

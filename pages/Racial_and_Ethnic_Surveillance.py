@@ -27,11 +27,11 @@ with tab0:
     # Set the CRS for the GeoDataFrame
     gdf = df.to_crs(epsg=4326)
 
-    # Calculate the 10% quartiles of the "Black/Whit" column
+    # Calculate the 10% quartiles of the "Black/Whit" column which is the avg value scaled for black vs whites
     quartiles = np.percentile(df["Black/Whit"].dropna(), [10, 20, 30, 40, 50, 60, 70, 80, 90])
 
     # Define the colors for the colormap
-    colors = ['#FF0000', '#FF3333', '#FF6666', '#FF9999', '#FFCCCC', '#FFE6E6', '#FFF2F2', '#FFF9F9', '#FFFFFF']
+    colors = ['#FFFF00', '#FFEB00', '#FFD600', '#FFC200', '#FFAE00', '#FF9A00', '#FF8600', '#FF7200', '#FF5E00', '#FF4A00', '#FF3600', '#FF2200', '#FF0E00']
 
     # Create a linear colormap based on the colors and quartiles
     colormap = LinearColormap(colors, vmin=quartiles[0], vmax=quartiles[-1]).scale(quartiles[0], quartiles[-1])
@@ -90,11 +90,11 @@ with tab0:
     # Set the CRS for the GeoDataFrame
     gdf = df.to_crs(epsg=4326)
 
-    # Calculate the 10% quartiles of the "Hispanic/W" column
+    # Calculate the 10% quartiles of the "Hispanic/W" column which is the avg value sclaed for Hispanic vs whites
     quartiles = np.percentile(df["Hispanic/W"].dropna(), [10, 20, 30, 40, 50, 60, 70, 80, 90])
 
     # Define the colors for the colormap
-    colors = ['#FF0000', '#FF3333', '#FF6666', '#FF9999', '#FFCCCC', '#FFE6E6', '#FFF2F2', '#FFF9F9', '#FFFFFF']
+    colors = ['#FFFF00', '#FFEB00', '#FFD600', '#FFC200', '#FFAE00', '#FF9A00', '#FF8600', '#FF7200', '#FF5E00', '#FF4A00', '#FF3600', '#FF2200', '#FF0E00']
 
     # Create a linear colormap based on the colors and quartiles
     colormap = LinearColormap(colors, vmin=quartiles[0], vmax=quartiles[-1]).scale(quartiles[0], quartiles[-1])
@@ -159,7 +159,7 @@ with tab1:
     quartiles = np.percentile(df["Black/Whit"].dropna(), [10, 20, 30, 40, 50, 60, 70, 80, 90])
 
     # Define the gradient shades of red colors for the colormap
-    colors = ['#FF0000', '#FF3333', '#FF6666', '#FF9999', '#FFCCCC', '#FFE6E6', '#FFF2F2', '#FFF9F9', '#FFFFFF']
+    colors = ['#FFFF00', '#FFEB00', '#FFD600', '#FFC200', '#FFAE00', '#FF9A00', '#FF8600', '#FF7200', '#FF5E00', '#FF4A00', '#FF3600', '#FF2200', '#FF0E00']
 
 
     # Create a linear colormap based on the colors and quartiles
@@ -220,7 +220,7 @@ with tab1:
     gdf = df.to_crs(epsg=4326)
 
     # Define the colors for the colormap
-    colors = ['#0000FF', '#0000AA', '#000055', '#005500', '#00AA00', '#55FF55', '#AAFFAA', '#FFFFAA', '#FFFFFF']
+    colors = ['#FFFF00', '#FFEB00', '#FFD600', '#FFC200', '#FFAE00', '#FF9A00', '#FF8600', '#FF7200', '#FF5E00', '#FF4A00', '#FF3600', '#FF2200', '#FF0E00']
     
     # Create a linear colormap based on the colors and quartiles
     colormap = LinearColormap(colors, vmin=quartiles[0], vmax=quartiles[-1]).scale(quartiles[0], quartiles[-1])

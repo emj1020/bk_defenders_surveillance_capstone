@@ -28,24 +28,27 @@ with tab0:
     # Set the CRS for the GeoDataFrame
     gdf = df.set_crs(epsg=2263, inplace=False).to_crs(epsg=4326)
 
-    # Create a linear colormap from yellow to red based on the "avg_value_" range
-    colormap = linear.YlOrRd_09.scale(gdf['avg_value_'].min(), gdf['avg_value_'].max())
+    # Rename the "avg_value_" column to "avg_value_scaled"
+    gdf.rename(columns={'avg_value_': 'avg_value_scaled'}, inplace=True)
+
+    # Create a linear colormap from yellow to red based on the "avg_value_scaled" range
+    colormap = linear.YlOrRd_09.scale(gdf['avg_value_scaled'].min(), gdf['avg_value_scaled'].max())
 
     # Create an interactive map centered around the data
     m = folium.Map(location=[gdf.centroid.y.mean(), gdf.centroid.x.mean()], zoom_start=14)
 
-    # Add the GeoDataFrame to the map with colored boundaries based on "avg_value_"
+    # Add the GeoDataFrame to the map with colored boundaries based on "avg_value_scaled"
     folium.GeoJson(
         gdf,
         name='Surveillance Metric',
         style_function=lambda feature: {
-            'fillColor': colormap(feature['properties']['avg_value_']),
+            'fillColor': colormap(feature['properties']['avg_value_scaled']),
             'color': 'black',
             'weight': 2,
             'fillOpacity': 0.7
         },
         tooltip=folium.features.GeoJsonTooltip(
-            fields=['avg_value_', 'quartile_b', 'quartile_l'],
+            fields=['avg_value_scaled', 'quartile_b', 'quartile_l'],
             aliases=['Surveillance Metric:', 'Quartile Label:', 'Percentile:'],
             localize=True,
             labels=True,
@@ -53,6 +56,11 @@ with tab0:
             style="font-weight:bold"
         )
     ).add_to(m)
+
+    # Add the legend to the right side of the map
+    colormap.caption = 'Surveillance Metric'
+    m.add_child(colormap)
+    m.get_root().html.add_child(folium.Element('<div style="position: fixed; top: 10px; right: 10px; z-index:9999; font-size: 12px; background-color: rgba(255, 255, 255, 0.7); padding: 10px; border-radius: 5px;">' + colormap.caption + '</div>'))
 
     map_container = st.container()
     with map_container:
@@ -69,6 +77,7 @@ with tab0:
         """,
         unsafe_allow_html=True
     )
+
 
 
 with tab1:
@@ -84,11 +93,14 @@ with tab1:
     # Set the CRS for the GeoDataFrame
     gdf = df.set_crs(epsg=2263, inplace=False).to_crs(epsg=4326)
 
-    # Calculate quartiles for the "avg_value_" column
-    quartiles = np.percentile(gdf['avg_value_'], [25, 50, 75])
+    # Rename the "avg_value_" column to "avg_value_scaled"
+    gdf.rename(columns={'avg_value_': 'avg_value_scaled'}, inplace=True)
 
-    # Create a linear colormap from yellow to red based on the "avg_value_" range
-    colormap = linear.YlOrRd_09.scale(gdf['avg_value_'].min(), gdf['avg_value_'].max())
+    # Calculate quartiles for the "avg_value_scaled" column
+    quartiles = np.percentile(gdf['avg_value_scaled'], [25, 50, 75])
+
+    # Create a linear colormap from yellow to red based on the "avg_value_scaled" range
+    colormap = linear.YlOrRd_09.scale(gdf['avg_value_scaled'].min(), gdf['avg_value_scaled'].max())
 
     # Create an interactive map centered around the data
     m = folium.Map(location=[gdf.centroid.y.mean(), gdf.centroid.x.mean()], zoom_start=14)
@@ -97,13 +109,13 @@ with tab1:
         gdf,
         name='Surveillance Metric',
         style_function=lambda feature: {
-            'fillColor': colormap(feature['properties']['avg_value_']),
+            'fillColor': colormap(feature['properties']['avg_value_scaled']),
             'color': 'black',
             'weight': 2,
             'fillOpacity': 0.7
         },
         tooltip=folium.features.GeoJsonTooltip(
-            fields=['avg_value_', 'quartile_b', 'quartile_l'],
+            fields=['avg_value_scaled', 'quartile_b', 'quartile_l'],
             aliases=['Surveillance Metric:', 'Quartile Label:', 'Percentile:'],
             localize=True,
             labels=True,
@@ -111,6 +123,11 @@ with tab1:
             style="font-weight:bold"
         )
     ).add_to(m)
+
+    # Add the legend to the right side of the map
+    colormap.caption = 'Surveillance Metric'
+    m.add_child(colormap)
+    m.get_root().html.add_child(folium.Element('<div style="position: fixed; top: 10px; right: 10px; z-index:9999; font-size: 12px; background-color: rgba(255, 255, 255, 0.7); padding: 10px; border-radius: 5px;">' + colormap.caption + '</div>'))
 
     map_container = st.container()
     with map_container:
@@ -128,9 +145,9 @@ with tab1:
         unsafe_allow_html=True
     )
 
+
+
 with tab2:
-
-
     # Step 1: Load and preprocess the data
     @st.cache_data
     def load_data():
@@ -147,8 +164,11 @@ with tab2:
     # Merge the df and metric_df on 'ntaname' column
     merged_df = df.merge(metric_df[['ntaname', 'avg_value_','quartile_b', 'quartile_l' ]], on='ntaname', how='left')
 
-    # Create a linear colormap from yellow to red based on the "avg_value_" range
-    colormap = linear.YlOrRd_09.scale(merged_df['avg_value_'].min(), merged_df['avg_value_'].max())
+    # Rename the "avg_value_" column to "avg_value_scaled"
+    merged_df.rename(columns={'avg_value_': 'avg_value_scaled'}, inplace=True)
+
+    # Create a linear colormap from yellow to red based on the "avg_value_scaled" range
+    colormap = linear.YlOrRd_09.scale(merged_df['avg_value_scaled'].min(), merged_df['avg_value_scaled'].max())
 
     # Create an interactive map centered around the data
     m = folium.Map(location=[merged_df.centroid.y.mean(), merged_df.centroid.x.mean()], zoom_start=12)
@@ -170,12 +190,12 @@ with tab2:
         merged_df,
         name='Neighborhood Boundaries',
         style_function=lambda feature: {
-            'fillColor': 'gray' if feature['properties']['avg_value_'] <= 0 else colormap(feature['properties']['avg_value_']),
+            'fillColor': 'gray' if feature['properties']['avg_value_scaled'] <= 0 else colormap(feature['properties']['avg_value_scaled']),
             **non_highlight_style
         },
         highlight_function=lambda x: {'weight': 3, **highlight_style},
         tooltip=folium.features.GeoJsonTooltip(
-            fields=['ntaname', 'avg_value_', 'quartile_b', 'quartile_l'],
+            fields=['ntaname', 'avg_value_scaled', 'quartile_b', 'quartile_l'],
             aliases=['Neighborhood:', 'Surveillance Metric:', 'Quartile Label:', 'Percentile:'],
             localize=True
         )
@@ -201,3 +221,4 @@ with tab2:
         """,
         unsafe_allow_html=True
     )
+

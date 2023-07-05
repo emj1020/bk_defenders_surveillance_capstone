@@ -11,6 +11,11 @@ from branca.colormap import linear
 
 st.set_page_config(layout="wide", page_title="Brooklyn Surveillance Map")
 st.title("Brooklyn Surveillance Metric in an Interactive Map")
+st.write((
+            "Using KDE output within the bounds of geographic units defined by various geospatial datasets like census blocks, tracts, and " 
+            "neighborhood tabulation areas to see which certain neighborhoods are subjected to higher rates of surveillance compared to others."
+)
+)
 
 tab0,tab1,tab2 = st.tabs(["Blocks", "Tracts", "Neighborhoods"])
 

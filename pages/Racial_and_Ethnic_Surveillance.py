@@ -9,6 +9,11 @@ from branca.colormap import LinearColormap
 
 st.set_page_config(layout="wide", page_title="Brooklyn Surveillance Metric (Racial & Ethnic Communities)")
 st.title("Brooklyn Racial and Ethnic Surveillance Metric in an Interactive Visuals")
+st.write((
+
+    "Surveillance metrics for each major racial and ethnic group across all census tracts and neighborhood tabulation areas in Brooklyn."
+)
+)
 
 tab0, tab1 = st.tabs(["Tracts", "Neighborhoods"])
 

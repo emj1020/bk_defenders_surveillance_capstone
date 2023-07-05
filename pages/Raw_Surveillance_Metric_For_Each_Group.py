@@ -8,6 +8,9 @@ import seaborn as sns
 
 st.set_page_config(layout="wide", page_title="Brooklyn Surveillance Metric (Racial & Ethnic Communities)")
 st.title("Raw Surveillance Metric for Each Racial and Ethnic Groups")
+st.write(
+    ("Distribution of our surveillance metric for each racial group across census tracts.")
+)
 
 # Step 1: Load and preprocess the data
 @st.cache_data

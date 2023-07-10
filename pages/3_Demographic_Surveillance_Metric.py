@@ -8,7 +8,7 @@ from branca.colormap import LinearColormap
 
 
 st.set_page_config(layout="wide", page_title="Brooklyn Surveillance Metric (Racial & Ethnic Communities)")
-st.title("Brooklyn Racial and Ethnic Surveillance Metric in an Interactive Visuals")
+st.title("Brooklyn Demographic Metric in an Interactive Visuals")
 st.write((
 
     "Surveillance metrics for each major racial and ethnic group across all census tracts and neighborhood tabulation areas in Brooklyn."
@@ -66,16 +66,31 @@ with tab0:
     # Add the colormap to the map legend
     colormap.add_to(m)
 
-    map_container = st.container()
+    map_container, text_container = st.columns([5, 1])
     with map_container:
         folium_static(m, width=800, height=900)
+
+    with text_container:
+        st.write("If this metric is greater than 1.0, that means Black residents are surveilled at higher rates than White residents within the same neighborhood.")
+        st.write("Based on the left map, Black vs. White surveillance rates at the Census Tract level, we see that Black residents are surveilled greater than White residents in more than 50% of the census tracts.")
 
     st.markdown(
         """
         <style>
-        .fullScreenMap {
-            height: 100vh !important;
-            width: 100% !important;
+        .layout-container {
+            display: flex;
+            flex-direction: row;
+        }
+        .map-container {
+            flex: 1;
+        }
+        .text-container {
+            width: 200px;
+            font-size: 12px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            margin-left: 100px;
         }
         </style>
         """,
@@ -195,16 +210,30 @@ with tab1:
     # Add the colormap to the map legend
     colormap.add_to(m)
 
-    map_container = st.container()
+    map_container, text_container = st.columns([5, 1])
     with map_container:
         folium_static(m, width=800, height=900)
 
+    with text_container:
+        st.write("The surveillance rates by race at the NTA level show lower racial disparities on average because we are randomly sampling points from our KDE output across a much larger geographical unit.")
+        st.write("This also contributes to a larger margin of errors compared to surveillance rates by race sampled at the Census Tract level.")
     st.markdown(
         """
         <style>
-        .fullScreenMap {
-            height: 100vh !important;
-            width: 100% !important;
+        .layout-container {
+            display: flex;
+            flex-direction: row;
+        }
+        .map-container {
+            flex: 1;
+        }
+        .text-container {
+            width: 200px;
+            font-size: 12px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            margin-left: 100px;
         }
         </style>
         """,

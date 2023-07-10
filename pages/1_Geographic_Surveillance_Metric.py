@@ -3,7 +3,7 @@ import geopandas as gpd
 import pandas as pd
 import numpy as np
 import folium
-from folium.plugins import MiniMap
+from folium.plugins import Fullscreen
 from streamlit_folium import folium_static
 import matplotlib.pyplot as plt
 from branca.colormap import linear
@@ -14,6 +14,7 @@ st.title("Brooklyn Surveillance Metric in an Interactive Map")
 st.write((
             "Using KDE output within the bounds of geographic units defined by various geospatial datasets like census blocks, tracts, and " 
             "neighborhood tabulation areas to see which certain neighborhoods are subjected to higher rates of surveillance compared to others."
+            " Our final surveillance metric is the average density within each neighborhood boundary and is then scaled to be between 0 and 1."
 )
 )
 
@@ -65,24 +66,55 @@ with tab0:
     # Add the legend to the right side of the map
     colormap.caption = 'Surveillance Metric'
     m.add_child(colormap)
-    m.get_root().html.add_child(folium.Element('<div style="position: fixed; top: 10px; right: 10px; z-index:9999; font-size: 12px; background-color: rgba(255, 255, 255, 0.7); padding: 10px; border-radius: 5px;">' + colormap.caption + '</div>'))
 
-    map_container = st.container()
-    with map_container:
-        folium_static(m, width=800, height=900)
+    # Create the legend HTML with the updated CSS class
+    legend_html = '''
+    <div class="legend-container">
+        <p><strong>Legend:</strong></p>
+        <p><strong>Quartile Buckets & Labels:</strong></p>
+        <p>Q1: Bottom 25%</p>
+        <p>Q2: Second Quartile</p>
+        <p>Q3: Third Quartile</p>
+        <p>Q4: Top 25%</p>
+    </div>
+    '''
 
     st.markdown(
         """
         <style>
-        .fullScreenMap {
-            height: 100vh !important;
-            width: 100% !important;
+        
+        .layout-container {
+            display: flex;
+            flex-direction: row;
+        }
+        .map-container {
+            flex: 1;
+        }
+        .legend-container {
+            width: 200px;
+            font-size: 12px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            margin-left: 50px;
         }
         </style>
         """,
         unsafe_allow_html=True
     )
 
+    layout_container = st.container()
+    with layout_container:
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            map_container = st.container()
+            with map_container:
+                folium_static(m, width=800, height=900)
+
+        with col2:
+            legend_container = st.container()
+            with legend_container:
+                st.markdown(legend_html, unsafe_allow_html=True)
 
 
 with tab1:
@@ -132,23 +164,54 @@ with tab1:
     # Add the legend to the right side of the map
     colormap.caption = 'Surveillance Metric'
     m.add_child(colormap)
-    m.get_root().html.add_child(folium.Element('<div style="position: fixed; top: 10px; right: 10px; z-index:9999; font-size: 12px; background-color: rgba(255, 255, 255, 0.7); padding: 10px; border-radius: 5px;">' + colormap.caption + '</div>'))
 
-    map_container = st.container()
-    with map_container:
-        folium_static(m, width=800, height=900)
+    # Create the legend HTML with the updated CSS class
+    legend_html = '''
+    <div class="legend-container">
+        <p><strong>Legend:</strong></p>
+        <p><strong>Quartile Buckets & Labels:</strong></p>
+        <p>Q1: Bottom 25%</p>
+        <p>Q2: Second Quartile</p>
+        <p>Q3: Third Quartile</p>
+        <p>Q4: Top 25%</p>
+    </div>
+    '''
 
     st.markdown(
         """
         <style>
-        .fullScreenMap {
-            height: 100vh !important;
-            width: 100% !important;
+        .layout-container {
+            display: flex;
+            flex-direction: row;
+        }
+        .map-container {
+            flex: 1;
+        }
+        .legend-container {
+            width: 200px;
+            font-size: 12px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            margin-left: 50px;
         }
         </style>
         """,
         unsafe_allow_html=True
     )
+
+    layout_container = st.container()
+    with layout_container:
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            map_container = st.container()
+            with map_container:
+                folium_static(m, width=800, height=900)
+
+        with col2:
+            legend_container = st.container()
+            with legend_container:
+                st.markdown(legend_html, unsafe_allow_html=True)
 
 
 
@@ -209,21 +272,51 @@ with tab2:
     # Add the legend to the right side of the map
     colormap.caption = 'Surveillance Metric'
     m.add_child(colormap)
-    m.get_root().html.add_child(folium.Element('<div style="position: fixed; top: 10px; right: 10px; z-index:9999; font-size: 12px; background-color: rgba(255, 255, 255, 0.7); padding: 10px; border-radius: 5px;">' + colormap.caption + '</div>'))
 
-    map_container = st.container()
-    with map_container:
-        folium_static(m, width=800, height=700)
+    # Create the legend HTML with the updated CSS class
+    legend_html = '''
+    <div class="legend-container">
+        <p><strong>Legend:</strong></p>
+        <p><strong>Quartile Buckets & Labels:</strong></p>
+        <p>Q1: Bottom 25%</p>
+        <p>Q2: Second Quartile</p>
+        <p>Q3: Third Quartile</p>
+        <p>Q4: Top 25%</p>
+    </div>
+    '''
 
     st.markdown(
         """
         <style>
-        .fullScreenMap {
-            height: 100vh !important;
-            width: 100% !important;
+        .layout-container {
+            display: flex;
+            flex-direction: row;
+        }
+        .map-container {
+            flex: 1;
+        }
+        .legend-container {
+            width: 200px;
+            font-size: 12px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            margin-left: 50px;
         }
         </style>
         """,
         unsafe_allow_html=True
     )
 
+    layout_container = st.container()
+    with layout_container:
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            map_container = st.container()
+            with map_container:
+                folium_static(m, width=800, height=700)
+
+        with col2:
+            legend_container = st.container()
+            with legend_container:
+                st.markdown(legend_html, unsafe_allow_html=True)
